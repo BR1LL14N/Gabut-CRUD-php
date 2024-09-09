@@ -25,7 +25,7 @@ if(isset($_POST["submit"])){
     }else{
         echo "
             <script>
-                alert('Data Berhasil Ditambahkan');
+                alert('Data Gagal Ditambahkan');
                 document.location.href = 'display.php';
             </script>
             ";

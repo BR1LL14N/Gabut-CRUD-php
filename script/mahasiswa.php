@@ -17,9 +17,9 @@ $mahasiswa = query($query);
 
 ?>
 
-<table border="1" cellpadding="10" cellspacing="0">
+            <table  class="table-auto border-1 border-slate-500">
                 <thead>
-                    <tr>
+                    <tr class="bg-red-500">
                         <th>No.</th>
                         <th>Action</th>
                         <th>Gambar</th>

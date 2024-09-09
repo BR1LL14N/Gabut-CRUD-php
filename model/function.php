@@ -5,7 +5,7 @@ $conn = mysqli_connect("localhost", "root", "", "phpdasar");
 
 function query($tujuan){
     global $conn;
-    // Mengambil Data Dari Tabel Mahasiswa (Database akan Mengembalikan 2 nilai default 1 data dari table dan bernilai boolean)
+    // Mengambil Data Dari Tabel Mahasiswa (Database akan Mengembalikan 2 nilai default 1 data dari table dan nilai boolean true apabila ada datany)
     $result = mysqli_query($conn, $tujuan);
     $rows = [];
 
@@ -38,11 +38,15 @@ function adddata($data){
     $jurusan = htmlspecialchars($data["jurusan"]);
     $gambar = uploadimg();
 
+    // Cek Agar User Harus Mengirimkan Gambar
     if(!$gambar){
         return false;
     }
 
     // Syntax insert SQL nya Saya Jadikan dalam Variabel query
+    // Walaupun id Sudah Auto Increment Dari SQL nya Tapi Tetap Harus
+    // Diinputkan Dengan Cara Menginputkan Tanda Petik Kosong 
+    // DAN HARUS URUT
     $query = "INSERT INTO mahasiswa VALUES 
     ('', '$nama', '$npm', '$email', '$jurusan', '$gambar')";
 
@@ -118,7 +122,8 @@ function uploadimg(){
     // Kemudian Rangkai Kalimat File Nya dengan Ekstensi Yang Sudah Di cek Sebelumnya
     $namaFilebaru .= '.';
     $namaFilebaru .= $ekstensiGambar;
-    // Upload Imge Yang Sudah Lolos Semua Tahap Pengecekan
+    // Upload Imge Yang Sudah Lolos Semua Tahap Pengecekan Dan Ganti
+    // File Nya Menjadi namaFile Baru
     move_uploaded_file($tmpimg,'src/' . $namaFilebaru);
 
     return $namaFilebaru;
@@ -157,7 +162,8 @@ function edit($data){
 
     $gambarLama = htmlspecialchars($data["gambarLama"]);
     
-    // Cek Apakah User Meng-Update Gambar Baru Atau Tidak
+    // Cek Apakah User Meng-Update Gambar Baru Atau Tidak Pesan
+    // Kesalahn 4 Memiliki Arti User Tidak Merubah Gambar apapun
     if($_FILES['gambar']['error'] === 4){
         $gambar = $gambarLama;
     }else{

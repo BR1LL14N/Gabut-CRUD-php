@@ -23,29 +23,19 @@ if(isset($_POST["cari"])){
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        .loader{
-            width: 110px;
-            position: absolute;
-            top: -23px;
-            z-index: -1;
-            display: none;
-        }
-    </style>
-    <!-- <link rel="stylesheet" href="style/style.css"> -->
-    <title>Ngetes SQL</title>
+    <?php $title = 'Display Data'; ?>    
+    <?php require_once('header.php') ?>
+
 </head>
 <body>
     
         <!-- Awal Bagian Searching -->
          <!-- LOGIKA LIVE SEARCHING NYA ADA PADA FILE AJAX.JS PADA -->
           <!-- FILE SCRIPT -->
-        <form action="" method="post">
+        <form action="" method="post" class="flex flex-row items-center gap-2">
             <input type="text" name="keyword" placeholder="Silahkan Masukkan Keyword Pencarian" autocomplete="off" size="50" autofocus id="search">
-            <button type="submit" name="cari" id="tombol-search">Cari Kang</button>
-            <img src="src/loader.gif" class="loader">
+            <!-- <button type="submit" name="cari" id="tombol-search">Cari Kang</button> -->
+            <img src="https://media.tenor.com/2BLI5EO7yVAAAAAi/loading-image.gif" width="20px" id="loader" class="hidden">
         </form>
         <br>
         <!-- Akhir Bagian Searching -->
@@ -54,7 +44,9 @@ if(isset($_POST["cari"])){
          <!-- LOGIKA NYA BERADA PADA FILE LOGOUT.PHP YANG BERADA -->
           <!-- PADA FOLDER MODEL -->
          <a href="model/logout.php">
-            <button type="submit">Logout kang</button>
+         <button type="submit" class="rounded-md bg-slate-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2" type="button">
+            Logout kang
+        </button>
          </a> <a href="./model/cetak.php" target="_blank">
             <button type="submit">Cetak</button>
          </a>
@@ -63,9 +55,9 @@ if(isset($_POST["cari"])){
         <!-- Awal Table Data -->
         <h1>Hasil Data Mahasiswa</h1>
         <div id="container">
-            <table border="1" cellpadding="10" cellspacing="0">
+            <table class="table-auto border-1 border-slate-500">
                 <thead>
-                    <tr>
+                    <tr class="bg-red-500">
                         <th>No.</th>
                         <th>Action</th>
                         <th>Gambar</th>
@@ -82,7 +74,7 @@ if(isset($_POST["cari"])){
                         <td><?php echo $no; ?></td>
                         <td class="action-links">
                             <!-- Pada bagian edit maupun delete mengirmkan id user -->
-                             <!-- Yang ingin yang dihapus menggunakan method Get -->
+                             <!-- Yang ingin dihapus menggunakan method Get -->
                               <!-- Karena nanti dibuat Acuan PAda Bagian Logikanya -->
                             <a href="edit.php?id=<?php echo $row["id"];?>">Edit</a>
                             <a href="model/delete.php?id=<?php echo $row["id"]; ?>" class="delete" onclick="return confirm('Yakin?');">Delete</a>
